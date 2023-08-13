@@ -34,6 +34,37 @@
   "activationEvents": [
     "onStartupFinished"
   ],
+  "contributes": {
+    "views": {
+      "HotNews": [
+        {
+          "id": "HotNews-WeiBo",
+          "name": "微博热搜"
+        },
+        {
+          "id": "HotNews-ZhiHu",
+          "name": "知乎热搜"
+        },
+        {
+          "id": "HotNews-BaiDu",
+          "name": "百度热搜"
+        },
+        {
+          "id": "HotNews-JueJin",
+          "name": "掘金文章"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "HotNews",
+          "title": "热搜",
+          "icon": "/assets/logo.png"
+        }
+      ]
+    }
+  },
   "scripts": {
     "build": "tsup src/index.ts --external vscode",
     "dev": "nr build --watch",
