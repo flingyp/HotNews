@@ -8,6 +8,7 @@ const WebViewStash = new Map()
 export function activate(context: ExtensionContext) {
   // Register TreeDataProvider
   window.registerTreeDataProvider('HotNews-WeiBo', new WeiBoTreeDataProvider())
+  // window.createTreeView('HotNews-WeiBo', { treeDataProvider: new WeiBoTreeDataProvider() })
 
   // Register Command
   commands.registerCommand('WebView-WeiBo', (title: string, category: string, link: string) => {
@@ -23,4 +24,4 @@ export function activate(context: ExtensionContext) {
   context.subscriptions.push()
 }
 
-export function deactivate() {}
+export function deactivate() { }

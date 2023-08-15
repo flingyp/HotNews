@@ -2,7 +2,7 @@
   "publisher": "flingyp",
   "name": "vscode-plugin-hot-news",
   "displayName": "HotNews",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "packageManager": "pnpm@8.6.0",
   "description": "The first time to grasp the hot news",
   "author": "FlingYP <flingyp@163.com>",
@@ -89,9 +89,7 @@
     "rimraf": "^5.0.1",
     "tsup": "^6.7.0",
     "typescript": "^5.1.3",
-    "vite": "^4.2.3"
-  },
-  "dependencies": {
+    "vite": "^4.2.3",
     "node-fetch": "2.6.12"
   }
 }
