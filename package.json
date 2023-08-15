@@ -3,7 +3,6 @@
   "name": "vscode-plugin-hot-news",
   "displayName": "HotNews",
   "version": "0.0.1",
-  "private": true,
   "packageManager": "pnpm@8.6.0",
   "description": "The first time to grasp the hot news",
   "author": "FlingYP <flingyp@163.com>",
