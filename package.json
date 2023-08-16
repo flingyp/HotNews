@@ -4,7 +4,7 @@
   "displayName": "HotNews",
   "version": "0.0.3",
   "packageManager": "pnpm@8.6.0",
-  "description": "The first time to grasp the hot news",
+  "description": "A plugin for browsing informational content in VSCode",
   "author": "FlingYP <flingyp@163.com>",
   "license": "MIT",
   "funding": "https://github.com/sponsors/flingyp",
