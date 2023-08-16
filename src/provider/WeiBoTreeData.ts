@@ -1,5 +1,5 @@
-import type { TreeDataProvider, TreeItemCollapsibleState } from 'vscode'
-import { TreeItem } from 'vscode'
+import type { Event, TreeDataProvider, TreeItemCollapsibleState } from 'vscode'
+import { EventEmitter, TreeItem } from 'vscode'
 import { getWeiBoData } from '../request'
 
 export class WeiBoData extends TreeItem {
@@ -20,11 +20,18 @@ export class WeiBoData extends TreeItem {
 }
 
 export class WeiBoTreeDataProvider implements TreeDataProvider<WeiBoData> {
+  private _onDidChangeTreeData: EventEmitter<WeiBoData | undefined | null | void> = new EventEmitter<WeiBoData | undefined | null | void>()
+  readonly onDidChangeTreeData: Event<WeiBoData | undefined | null | void> = this._onDidChangeTreeData.event
+
   getTreeItem(element: WeiBoData): TreeItem | Thenable<TreeItem> {
     return element
   }
 
   async getChildren() {
     return Promise.resolve(await getWeiBoData())
+  }
+
+  refresh(): void {
+    this._onDidChangeTreeData.fire()
   }
 }

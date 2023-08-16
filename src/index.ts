@@ -1,14 +1,14 @@
 import type { ExtensionContext } from 'vscode'
 import { ViewColumn, commands, window } from 'vscode'
-import { WeiBoTreeDataProvider } from './provider'
 import { getWebViewContainerContent } from './webview'
+import { WeiBoTreeDataProvider } from './provider'
 
 const WebViewStash = new Map()
 
 export function activate(context: ExtensionContext) {
   // Register TreeDataProvider
-  window.registerTreeDataProvider('HotNews-WeiBo', new WeiBoTreeDataProvider())
-  // window.createTreeView('HotNews-WeiBo', { treeDataProvider: new WeiBoTreeDataProvider() })
+  const weiBoTreeDataProvider = new WeiBoTreeDataProvider()
+  window.registerTreeDataProvider('HotNews-WeiBo', weiBoTreeDataProvider)
 
   // Register Command
   commands.registerCommand('WebView-WeiBo', (title: string, category: string, link: string) => {
@@ -19,6 +19,10 @@ export function activate(context: ExtensionContext) {
     WebViewStash.set('weiBoWebView', panel)
 
     panel.webview.html = getWebViewContainerContent(link)
+  })
+
+  commands.registerCommand('WeiBoHotNews.refresh', () => {
+    weiBoTreeDataProvider.refresh()
   })
 
   context.subscriptions.push()

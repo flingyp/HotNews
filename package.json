@@ -34,6 +34,25 @@
     "onStartupFinished"
   ],
   "contributes": {
+    "commands": [
+      {
+        "command": "WeiBoHotNews.refresh",
+        "title": "Refresh",
+        "icon": {
+          "light": "./assets/refresh-black.svg",
+          "dark": "./assets/refresh-white.svg"
+        }
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "WeiBoHotNews.refresh",
+          "when": "view == HotNews-WeiBo",
+          "group": "navigation"
+        }
+      ]
+    },
     "views": {
       "HotNews": [
         {
