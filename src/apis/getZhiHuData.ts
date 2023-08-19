@@ -5,6 +5,7 @@ import { request } from '../request'
 
 export async function getZhiHuData() {
   const zhiHuUrl = 'https://www.zhihu.com/api/v3/feed/topstory/hot-lists/total?limit=50'
+  const webLink = 'https://www.zhihu.com/question/'
   const { data: responseData } = await request(zhiHuUrl, { method: 'GET' })
   // responseData: [...{}]
   const realTimeList: unknown[] = responseData || []
@@ -15,12 +16,12 @@ export async function getZhiHuData() {
       excerpt: item.target.excerpt,
       value: item.detail_text,
       rankValue: index + 1,
-      url: item.target.url,
+      url: `${webLink}${item.target.id}`,
     }
   })
   const renderData: any[] = []
   zhiHuList.forEach((item, index) => {
-    const label = `${item.rankValue} ${item.title}`
+    const label = `${item.rankValue} ${item.title} `
     const description = item.value
     const tooltip = item.excerpt
     let iconPath
@@ -30,7 +31,7 @@ export async function getZhiHuData() {
     // Executes when a tree item is clicked.
     const command: Command = {
       title: 'open',
-      command: 'WebView-zhiHu',
+      command: 'OpenLink-ZhiHu',
       arguments: [item.title, item.url],
     }
 
