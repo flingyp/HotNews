@@ -28,6 +28,10 @@ export function activate(context: ExtensionContext) {
     weiBoTreeDataProvider.refresh()
   })
 
+  commands.registerCommand('ZhiHuNews.refresh', () => {
+    zhiHuTreeDataProvider.refresh()
+  })
+
   context.subscriptions.push()
 }
 

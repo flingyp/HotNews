@@ -42,6 +42,14 @@
           "light": "./assets/refresh-black.svg",
           "dark": "./assets/refresh-white.svg"
         }
+      },
+      {
+        "command": "ZhiHuNews.refresh",
+        "title": "Refresh",
+        "icon": {
+          "light": "./assets/refresh-black.svg",
+          "dark": "./assets/refresh-white.svg"
+        }
       }
     ],
     "menus": {
@@ -49,6 +57,11 @@
         {
           "command": "WeiBoHotNews.refresh",
           "when": "view == HotNews-WeiBo",
+          "group": "navigation"
+        },
+        {
+          "command": "ZhiHuNews.refresh",
+          "when": "view == HotNews-ZhiHu",
           "group": "navigation"
         }
       ]
