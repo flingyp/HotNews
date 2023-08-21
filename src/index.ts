@@ -7,18 +7,20 @@ import { WeiBoTreeDataProvider, ZhiHuTreeDataProvider } from './provider'
 const WebViewStash = new Map()
 
 export function activate(context: ExtensionContext) {
-  // Register TreeDataProvider
+  // One：Register TreeDataProvider
   const weiBoTreeDataProvider = new WeiBoTreeDataProvider()
-  const treeDataProviderOne = window.registerTreeDataProvider('HotNews-WeiBo', weiBoTreeDataProvider)
+  const weiBoProvider = window.registerTreeDataProvider('HotNews-WeiBo', weiBoTreeDataProvider)
 
   const zhiHuTreeDataProvider = new ZhiHuTreeDataProvider()
-  const treeDataProviderTwo = window.registerTreeDataProvider('HotNews-ZhiHu', zhiHuTreeDataProvider)
+  const zhiHuProvider = window.registerTreeDataProvider('HotNews-ZhiHu', zhiHuTreeDataProvider)
 
   const jueJinTreeDataProvider = new JueJinTreeDataProvider()
-  const treeDataProviderThree = window.registerTreeDataProvider('HotNews-JueJin', jueJinTreeDataProvider)
+  const jueJinProvider = window.registerTreeDataProvider('HotNews-JueJin', jueJinTreeDataProvider)
 
-  // Register WebView Command
-  const registerCommandOne = commands.registerCommand('WebView-WeiBo', (title: string, category: string, link: string) => {
+  const treeDataProviderList = [weiBoProvider, zhiHuProvider, jueJinProvider]
+
+  // Two：Register WebView Command
+  const weiBoWebView = commands.registerCommand('WebView-WeiBo', (title: string, category: string, link: string) => {
     WebViewStash.get('weiBoWebView')?.dispose()
 
     const panel = window.createWebviewPanel('weiBoWebView', `${title}-${category}`, ViewColumn.Active, { enableScripts: true, retainContextWhenHidden: true })
@@ -28,11 +30,11 @@ export function activate(context: ExtensionContext) {
     panel.webview.html = getWebViewContainerContent(link)
   })
 
-  const registerCommandTwo = commands.registerCommand('OpenLink-ZhiHu', (title: string, link: string) => {
+  const zhiHuWebView = commands.registerCommand('OpenLink-ZhiHu', (title: string, link: string) => {
     env.openExternal(Uri.parse(link))
   })
 
-  const registerCommandThree = commands.registerCommand('WebView-JueJi', (title: string, category: string, link: string) => {
+  const jueJinWebView = commands.registerCommand('WebView-JueJi', (title: string, category: string, link: string) => {
     WebViewStash.get('jueJinWebView')?.dispose()
 
     const panel = window.createWebviewPanel('weiBoWebView', `${title}-${category}`, ViewColumn.Active, { enableScripts: true, retainContextWhenHidden: true })
@@ -42,20 +44,23 @@ export function activate(context: ExtensionContext) {
     panel.webview.html = getWebViewContainerContent(link)
   })
 
-  // Register Refresh Command
-  const registerCommandFour = commands.registerCommand('WeiBoHotNews.refresh', () => {
+  const webviewLinkList = [weiBoWebView, zhiHuWebView, jueJinWebView]
+
+  // Three：Register Refresh Command
+  const weiBoRefresh = commands.registerCommand('WeiBoHotNews.refresh', () => {
     weiBoTreeDataProvider.refresh()
   })
 
-  const registerCommandFive = commands.registerCommand('ZhiHuNews.refresh', () => {
+  const zhiHuRefresh = commands.registerCommand('ZhiHuNews.refresh', () => {
     zhiHuTreeDataProvider.refresh()
   })
 
-  const registerCommandSix = commands.registerCommand('JueJinNews.refresh', () => {
+  const jueJinRefresh = commands.registerCommand('JueJinNews.refresh', () => {
     jueJinTreeDataProvider.refresh()
   })
 
-  context.subscriptions.push(treeDataProviderOne, treeDataProviderTwo, treeDataProviderThree, registerCommandOne, registerCommandTwo, registerCommandThree, registerCommandFour, registerCommandFive, registerCommandSix)
+  const refreshBtnList = [weiBoRefresh, zhiHuRefresh, jueJinRefresh]
+  context.subscriptions.push(...treeDataProviderList, ...webviewLinkList, ...refreshBtnList)
 }
 
 export function deactivate() { }
