@@ -50,6 +50,14 @@
           "light": "./assets/refresh-black.svg",
           "dark": "./assets/refresh-white.svg"
         }
+      },
+      {
+        "command": "JueJinNews.refresh",
+        "title": "Refresh",
+        "icon": {
+          "light": "./assets/refresh-black.svg",
+          "dark": "./assets/refresh-white.svg"
+        }
       }
     ],
     "menus": {
@@ -62,6 +70,11 @@
         {
           "command": "ZhiHuNews.refresh",
           "when": "view == HotNews-ZhiHu",
+          "group": "navigation"
+        },
+        {
+          "command": "JueJinNews.refresh",
+          "when": "view == HotNews-JueJin",
           "group": "navigation"
         }
       ]
@@ -82,7 +95,7 @@
         },
         {
           "id": "HotNews-JueJin",
-          "name": "掘金文章"
+          "name": "掘金推荐文章"
         }
       ]
     },

@@ -1,5 +1,6 @@
 import type { ExtensionContext } from 'vscode'
 import { Uri, ViewColumn, commands, env, window } from 'vscode'
+import { JueJinTreeDataProvider } from './provider/JueJinTreeData'
 import { getWebViewContainerContent } from './webview'
 import { WeiBoTreeDataProvider, ZhiHuTreeDataProvider } from './provider'
 
@@ -13,7 +14,10 @@ export function activate(context: ExtensionContext) {
   const zhiHuTreeDataProvider = new ZhiHuTreeDataProvider()
   const treeDataProviderTwo = window.registerTreeDataProvider('HotNews-ZhiHu', zhiHuTreeDataProvider)
 
-  // Register Command
+  const jueJinTreeDataProvider = new JueJinTreeDataProvider()
+  const treeDataProviderThree = window.registerTreeDataProvider('HotNews-JueJin', jueJinTreeDataProvider)
+
+  // Register WebView Command
   const registerCommandOne = commands.registerCommand('WebView-WeiBo', (title: string, category: string, link: string) => {
     WebViewStash.get('weiBoWebView')?.dispose()
 
@@ -28,15 +32,30 @@ export function activate(context: ExtensionContext) {
     env.openExternal(Uri.parse(link))
   })
 
-  const registerCommandThree = commands.registerCommand('WeiBoHotNews.refresh', () => {
+  const registerCommandThree = commands.registerCommand('WebView-JueJi', (title: string, category: string, link: string) => {
+    WebViewStash.get('jueJinWebView')?.dispose()
+
+    const panel = window.createWebviewPanel('weiBoWebView', `${title}-${category}`, ViewColumn.Active, { enableScripts: true, retainContextWhenHidden: true })
+
+    WebViewStash.set('jueJinWebView', panel)
+
+    panel.webview.html = getWebViewContainerContent(link)
+  })
+
+  // Register Refresh Command
+  const registerCommandFour = commands.registerCommand('WeiBoHotNews.refresh', () => {
     weiBoTreeDataProvider.refresh()
   })
 
-  const registerCommandFour = commands.registerCommand('ZhiHuNews.refresh', () => {
+  const registerCommandFive = commands.registerCommand('ZhiHuNews.refresh', () => {
     zhiHuTreeDataProvider.refresh()
   })
 
-  context.subscriptions.push(treeDataProviderOne, treeDataProviderTwo, registerCommandOne, registerCommandTwo, registerCommandThree, registerCommandFour)
+  const registerCommandSix = commands.registerCommand('JueJinNews.refresh', () => {
+    jueJinTreeDataProvider.refresh()
+  })
+
+  context.subscriptions.push(treeDataProviderOne, treeDataProviderTwo, treeDataProviderThree, registerCommandOne, registerCommandTwo, registerCommandThree, registerCommandFour, registerCommandFive, registerCommandSix)
 }
 
 export function deactivate() { }
