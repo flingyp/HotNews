@@ -46,7 +46,7 @@ export async function getJueJiData() {
     const command: Command = {
       title: 'open',
       command: 'WebView-JueJi',
-      arguments: [item.title, item.category, item.url],
+      arguments: [item.title, `【${description}】`, item.url],
     }
 
     const treeItem = new JueJinData(label, TreeItemCollapsibleState.None, description, tooltip, iconPath, command)
