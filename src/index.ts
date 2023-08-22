@@ -61,6 +61,8 @@ export function activate(context: ExtensionContext) {
 
   const refreshBtnList = [weiBoRefresh, zhiHuRefresh, jueJinRefresh]
   context.subscriptions.push(...treeDataProviderList, ...webviewLinkList, ...refreshBtnList)
+
+  window.showInformationMessage('⭐️⭐️⭐️ HotNews is activated!')
 }
 
 export function deactivate() { }
