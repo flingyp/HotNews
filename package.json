@@ -2,7 +2,7 @@
   "publisher": "flingyp",
   "name": "vscode-plugin-hot-news",
   "displayName": "HotNews",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "packageManager": "pnpm@8.6.0",
   "description": "A plugin to browse hot content for platforms in VSCode",
   "author": "FlingYP <flingyp@163.com>",
