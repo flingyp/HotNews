@@ -3,7 +3,7 @@ import { type Command, TreeItemCollapsibleState } from 'vscode'
 import { JueJinData } from '../provider'
 import { request } from '../request'
 
-export async function getJueJiData() {
+export async function getJueJinData() {
   const jueJinUrl = 'https://api.juejin.cn/recommend_api/v1/article/recommend_all_feed'
   const webLink = 'https://juejin.cn/post'
 
@@ -12,11 +12,11 @@ export async function getJueJiData() {
   })
   // responseData: []
   const realTimeList: any[] = responseData || []
-  const jueJiList: any[] = []
+  const jueJinList: any[] = []
 
   realTimeList.forEach((item, index) => {
     if (index >= 1) {
-      jueJiList.push({
+      jueJinList.push({
         title: item.item_info.article_info.title,
         viewCount: item.item_info.article_info.view_count, // 文章阅读量
         diggCount: item.item_info.article_info.digg_count, // 文章点赞量
@@ -28,7 +28,7 @@ export async function getJueJiData() {
     }
   })
   const renderData: any[] = []
-  jueJiList.forEach((item, index) => {
+  jueJinList.forEach((item, index) => {
     const label = `${item.rankValue} ${item.title}`
     let description = ''
     item.category.forEach((category: any) => {
@@ -45,7 +45,7 @@ export async function getJueJiData() {
     // Executes when a tree item is clicked.
     const command: Command = {
       title: 'open',
-      command: 'WebView-JueJi',
+      command: 'WebView-JueJin',
       arguments: [item.title, `【${description}】`, item.url],
     }
 

@@ -1,6 +1,6 @@
 import type { Event, TreeDataProvider, TreeItemCollapsibleState } from 'vscode'
 import { EventEmitter, TreeItem } from 'vscode'
-import { getJueJiData } from '../request'
+import { getJueJinData } from '../request'
 
 export class JueJinData extends TreeItem {
   constructor(
@@ -28,7 +28,7 @@ export class JueJinTreeDataProvider implements TreeDataProvider<JueJinData> {
   }
 
   async getChildren() {
-    return Promise.resolve(await getJueJiData())
+    return Promise.resolve(await getJueJinData())
   }
 
   refresh(): void {

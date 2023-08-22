@@ -37,7 +37,7 @@ export function activate(context: ExtensionContext) {
     env.openExternal(Uri.parse(link))
   })
 
-  const jueJinWebView = commands.registerCommand('WebView-JueJi', (title: string, category: string, link: string) => {
+  const jueJinWebView = commands.registerCommand('WebView-JueJin', (title: string, category: string, link: string) => {
     WebViewStash.get('jueJinWebView')?.dispose()
 
     const panel = window.createWebviewPanel('weiBoWebView', `${title}-${category}`, ViewColumn.Active, { enableScripts: true, retainContextWhenHidden: true })
