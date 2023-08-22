@@ -86,7 +86,7 @@
           "group": "navigation"
         },
         {
-          "command": "JueJinNews.refresh",
+          "command": "BaiDuNews.refresh",
           "when": "view == HotNews-BaiDu",
           "group": "navigation"
         }
