@@ -2,7 +2,7 @@ import type { ExtensionContext } from 'vscode'
 import { Uri, ViewColumn, commands, env, window } from 'vscode'
 import { JueJinTreeDataProvider } from './provider/JueJinTreeData'
 import { getWebViewContainerContent } from './webview'
-import { WeiBoTreeDataProvider, ZhiHuTreeDataProvider } from './provider'
+import { BaiDuTreeDataProvider, WeiBoTreeDataProvider, ZhiHuTreeDataProvider } from './provider'
 
 const WebViewStash = new Map()
 
@@ -17,7 +17,10 @@ export function activate(context: ExtensionContext) {
   const jueJinTreeDataProvider = new JueJinTreeDataProvider()
   const jueJinProvider = window.registerTreeDataProvider('HotNews-JueJin', jueJinTreeDataProvider)
 
-  const treeDataProviderList = [weiBoProvider, zhiHuProvider, jueJinProvider]
+  const baiDuTreeDataProvider = new BaiDuTreeDataProvider()
+  const baiDuProvider = window.registerTreeDataProvider('HotNews-BaiDu', baiDuTreeDataProvider)
+
+  const treeDataProviderList = [weiBoProvider, zhiHuProvider, jueJinProvider, baiDuProvider]
 
   // Two：Register WebView Command
   const weiBoWebView = commands.registerCommand('WebView-WeiBo', (title: string, category: string, link: string) => {
@@ -44,7 +47,11 @@ export function activate(context: ExtensionContext) {
     panel.webview.html = getWebViewContainerContent(link)
   })
 
-  const webviewLinkList = [weiBoWebView, zhiHuWebView, jueJinWebView]
+  const baiDuWebView = commands.registerCommand('WebView-BaiDu', (title: string, link: string) => {
+    env.openExternal(Uri.parse(link))
+  })
+
+  const webviewLinkList = [weiBoWebView, zhiHuWebView, jueJinWebView, baiDuWebView]
 
   // Three：Register Refresh Command
   const weiBoRefresh = commands.registerCommand('WeiBoHotNews.refresh', () => {
@@ -59,7 +66,11 @@ export function activate(context: ExtensionContext) {
     jueJinTreeDataProvider.refresh()
   })
 
-  const refreshBtnList = [weiBoRefresh, zhiHuRefresh, jueJinRefresh]
+  const baiDuRefresh = commands.registerCommand('BaiDuNews.refresh', () => {
+    baiDuTreeDataProvider.refresh()
+  })
+
+  const refreshBtnList = [weiBoRefresh, zhiHuRefresh, jueJinRefresh, baiDuRefresh]
   context.subscriptions.push(...treeDataProviderList, ...webviewLinkList, ...refreshBtnList)
 
   window.showInformationMessage('⭐️⭐️⭐️ HotNews is activated!')

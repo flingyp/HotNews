@@ -10,3 +10,4 @@ export async function request(url: string, params: RequestInit) {
 export * from './apis/getWeiBoData'
 export * from './apis/getZhiHuData'
 export * from './apis/getJueJinData'
+export * from './apis/getBaiDuData'
