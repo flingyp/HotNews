@@ -7,10 +7,18 @@
 
 ## Features
 
+> **微博热搜** 与 **掘进推荐文章** 支持内嵌Webview浏览。**知乎热榜** 与 **百度热搜** 则支持跳转默认浏览器中打开
+
 - [x] 微博热搜
 - [x] 知乎热榜
 - [x] 百度热搜
 - [x] 掘金推荐文章
+
+## Preview
+
+![preview-one](./assets/preview/preview-one.jpg)
+
+![preview-two](./assets/preview/preview-two.jpg)
 
 ## License
 
