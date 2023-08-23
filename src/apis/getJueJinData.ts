@@ -15,9 +15,9 @@ export async function getJueJinData() {
   const jueJinList: any[] = []
 
   realTimeList.forEach((item, index) => {
-    if (index >= 1) {
+    if (index >= 1 && item.item_info.article_info && item.item_info.tags) {
       jueJinList.push({
-        title: item.item_info.article_info.title,
+        title: item.item_info?.article_info?.title,
         viewCount: item.item_info.article_info.view_count, // 文章阅读量
         diggCount: item.item_info.article_info.digg_count, // 文章点赞量
         authorName: item.item_info.author_user_info.user_name, // 作者名字
