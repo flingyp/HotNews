@@ -4,39 +4,32 @@ import { JueJinData } from '../provider'
 import { request } from '../request'
 
 export async function getJueJinData() {
-  const jueJinUrl = 'https://api.juejin.cn/recommend_api/v1/article/recommend_all_feed'
+  const jueJinUrl = 'https://api.juejin.cn/content_api/v1/content/article_rank?category_id=1&type=hot'
   const webLink = 'https://juejin.cn/post'
 
   const { data: responseData } = await request(jueJinUrl, {
-    method: 'POST',
+    method: 'GET',
   })
   // responseData: []
   const realTimeList: any[] = responseData || []
   const jueJinList: any[] = []
 
   realTimeList.forEach((item, index) => {
-    if (index >= 1 && item.item_info.article_info && item.item_info.tags) {
-      jueJinList.push({
-        title: item.item_info?.article_info?.title,
-        viewCount: item.item_info.article_info.view_count, // 文章阅读量
-        diggCount: item.item_info.article_info.digg_count, // 文章点赞量
-        authorName: item.item_info.author_user_info.user_name, // 作者名字
-        category: item.item_info.tags || [], // 文章分类
-        rankValue: index,
-        url: `${webLink}/${item.item_info.article_id}`,
-      })
-    }
+    jueJinList.push({
+      title: item.content.title,
+      hotValue: item.content_counter.hot_rank, // 文章热度
+      viewValue: item.content_counter.view, // 文章浏览量
+      authorName: item.author.name, // 作者名字
+      rankValue: index + 1,
+      url: `${webLink}/${item.content.content_id}`,
+    })
   })
+
   const renderData: any[] = []
   jueJinList.forEach((item, index) => {
     const label = `${item.rankValue} ${item.title}`
-    let description = ''
-    item.category.forEach((category: any) => {
-      if (description === '')
-        description = category.tag_name
-      else description += `,${category.tag_name}`
-    })
-    const tooltip = `作者：${item.authorName},阅读量：${item.viewCount},点赞量：${item.diggCount}`
+    const description = `${item.hotValue} 热度`
+    const tooltip = `作者：${item.authorName}，浏览量：${item.viewValue}`
 
     let iconPath
     if (index < 3)
@@ -46,7 +39,7 @@ export async function getJueJinData() {
     const command: Command = {
       title: 'open',
       command: 'WebView-JueJin',
-      arguments: [item.title, `【${description}】`, item.url],
+      arguments: [item.title, item.authorName, item.url],
     }
 
     const treeItem = new JueJinData(label, TreeItemCollapsibleState.None, description, tooltip, iconPath, command)
