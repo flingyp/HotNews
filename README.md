@@ -20,6 +20,11 @@
 
 ![preview-two](./assets/preview/preview-two.jpg)
 
+## TODO
+
+- 抖音热搜榜
+- 今日头条热搜榜
+
 ## License
 
 [MIT](./LICENSE) License © 2023 [flingyp](https://github.com/flingyp)

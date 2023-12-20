@@ -109,6 +109,14 @@
         {
           "id": "HotNews-JueJin",
           "name": "掘金热榜"
+        },
+        {
+          "id": "HotNews-DouYin",
+          "name": "抖音热搜榜"
+        },
+        {
+          "id": "HotNews-TouTiao",
+          "name": "今日头条热搜榜"
         }
       ]
     },
